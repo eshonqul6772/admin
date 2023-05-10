@@ -1,0 +1,22 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  --bg-main: #0fae96;
+  --bg-body: #121212;
+  --component-color: #262626;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.context{
+display: flex;
+
+}
+
+body {
+  background-color: hsl(0, 0%, 96%);
+  }

@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "name": "Eshonqul",
+      "email": "aeshonqul@gmail.com",
+      "address": "Surxandaryo",
+      "id": 1
+    },
+    {
+      "name": "Ali",
+      "email": "ali@gmail.com",
+      "address": "Toshkent",
+      "id": 2
+    },
+    {
+      "name": "Vali",
+      "email": "vali@gmail.com",
+      "address": "qarshi",
+      "id": 3
+    }
+  ]
+}

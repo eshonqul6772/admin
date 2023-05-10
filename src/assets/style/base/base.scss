@@ -1,0 +1,47 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  vertical-align: baseline;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: 0;
+  outline: none;
+}
+
+form {
+  width: 100%;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
+
+.context {
+  display: flex;
+}
+main {
+  width: 100%;
+}

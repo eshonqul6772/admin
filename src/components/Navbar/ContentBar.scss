@@ -1,0 +1,14 @@
+.history{
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 20px;
+  background-color: #003681;
+  color: #FFFFFF;
+
+
+  &__top{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

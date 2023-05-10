@@ -1,0 +1,10 @@
+
+@import "./base/base.scss";
+@import "./base/normalise.scss";
+@import "./base/thems.scss";
+@import "./base/typeographe.scss";
+
+root{
+  @include them-light;
+}
+

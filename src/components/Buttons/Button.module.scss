@@ -1,0 +1,46 @@
+.wrapper {
+  padding: 15.5px 56.5px;
+  border: 1px solid black;
+  border-radius: 4px;
+  color: white;
+
+  &--size {
+    &-sm {
+      padding: 20.5px 76.5px;
+    }
+
+  }
+
+  &--variant {
+    &-success {
+      background-color: #003681;
+      color: #FFFFFF;
+    }
+
+    &-black {
+      background-color: var(--bg-body);
+      color: #FFFFFF;
+    }
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      opacity: .9;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.9995);
+    }
+  }
+
+}
