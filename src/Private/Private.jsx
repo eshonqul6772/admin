@@ -1,15 +1,11 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 
+
 const Private = () => {
+  const getToken = localStorage.getItem("setToken")
 
-    const token =  JSON.parse(localStorage.getItem("token"))
-
-
-   if (token){
-       const element = <>{token ? <Outlet /> : <Navigate to='/login' />}</>;
-       return element;
-   }
+  return getToken ? <Outlet/> :  Navigate("/login")
 };
 
 export default Private;

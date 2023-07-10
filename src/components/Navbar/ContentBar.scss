@@ -1,14 +1,28 @@
-.history{
+.history {
   display: flex;
   justify-content: space-between;
   padding: 13px 20px;
   background-color: #003681;
-  color: #FFFFFF;
+  color: #ffffff;
 
-
-  &__top{
+  &__top {
+    position: relative;
+    width: 400px;
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  .search__input {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 7px;
+    background: #fff;
+  }
+
+  .search__icon{
+    position: absolute;
+    top: 20px;
+    right: 25px;
   }
 }

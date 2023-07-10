@@ -1,65 +1,73 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import {FaUserAlt} from "react-icons/fa"
-import { BsArrowRight } from 'react-icons/bs';
+import { NavLink, Link } from 'react-router-dom';
+import { FaUserAlt } from 'react-icons/fa';
+import { BiCategory } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
-import { RiLogoutBoxRLine } from 'react-icons/ri';
-import {AiFillHome} from "react-icons/ai"
+import { AiFillHome } from 'react-icons/ai';
+import { SlBasket } from 'react-icons/sl';
+import {HiLocationMarker} from "react-icons/hi"
 
 import './Menu.scss';
+import Logo from '../../assets/svg/logo.svg';
 
-function Menu({setIsAuth}) {
+function Menu() {
   return (
     <header className='menu'>
       <ul className='menu__list'>
         <li className='menu__list-item'>
+          <Link className='menu__logo border-bottom border-dark' to='/'>
+            <img src={Logo} alt={Logo} />
+          </Link>
+        </li>
+
+        <li className='menu__list-item'>
           <NavLink className='menu__link' to='/'>
-            <AiFillHome size='25' /> Home
+            <AiFillHome size='25' /> Buyurtma
           </NavLink>
         </li>
 
         <li className='menu__list-item'>
           <NavLink
             className={({ isActive }) => (isActive ? 'menu__link active' : 'menu__link')}
-            to='/users'
+            to='/costumer'
           >
-            <FaUserAlt size='25' /> Users
+            <FaUserAlt size='25' /> Mijoz
           </NavLink>
         </li>
 
         <li className='menu__list-item'>
           <NavLink
             className={({ isActive }) => (isActive ? 'menu__link active' : 'menu__link')}
-            to='/receive'
+            to='/toifa'
           >
-            <BsArrowRight size='25' /> Receive
+            <BiCategory size='25' /> Toifa
           </NavLink>
         </li>
 
         <li className='menu__list-item'>
           <NavLink
             className={({ isActive }) => (isActive ? 'menu__link active' : 'menu__link')}
-            to='/welles'
+            to='/mahsulot'
           >
-            <RiLogoutBoxRLine size='25' /> Wallets
+            <SlBasket size='25' /> Mahsulotlar
           </NavLink>
         </li>
 
         <li className='menu__list-item'>
           <NavLink
             className={({ isActive }) => (isActive ? 'menu__link active' : 'menu__link')}
-            to='/settings'
+            to='/texnolologiya'
           >
-            <FiSettings size='25' /> Settings
+            <FiSettings size='25' /> Texnologiyalar
           </NavLink>
         </li>
 
         <li className='menu__list-item'>
-          <NavLink onClick={() => setIsAuth(false)}
-              className={({ isActive }) => (isActive ? 'menu__link active' : 'menu__link')}
-              to='/login'
+          <NavLink
+            className={({ isActive }) => (isActive ? 'menu__link active' : 'menu__link')}
+            to='/manzil'
           >
-            <FiSettings size='25' /> Logo Out
+            <HiLocationMarker size='25' /> Manzil
           </NavLink>
         </li>
       </ul>

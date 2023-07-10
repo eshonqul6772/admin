@@ -1,107 +1,90 @@
-import React, {useState} from 'react';
-import {useNavigate, Navigate} from 'react-router-dom';
-import toast, {Toaster} from 'react-hot-toast';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineUser } from "react-icons/ai";
+import { CiLock } from "react-icons/ci";
+import axios from "axios";
+// import swal from 'sweetalert'
+
+import "./Login.scss";
+
+export const Login = () => {
+  const navigate = useNavigate("");
+
+ 
+  const [values, setValues] = useState({
+    userName: "",
+    password: "",
+  });
 
 
-import './Login.scss';
-import Containers from '../../components/Container';
+  
+  
+  const handleInputChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
-import Button from '../../components/Buttons';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const Login = ({setIsAuth}) => {
-
-  const navigate = useNavigate();
-
-
-
-  const [goHomePage, setGoHOmePage] = useState(false);
-  const [email, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  // const [error, setError] = useState(null);
-
+    try {
+      const response = await axios.post(
+        "http://localhost:1212/admin/login",
+        values
+      );
 
 
-  const loginToken = {
-    email:"aeshonqul@gmail.com",
-    password:"password"
-  }
-  localStorage.setItem("token", JSON.stringify(loginToken))
+      
+      const setToken = JSON.stringify(localStorage.setItem("setToken",response))
 
-  const getToken =  JSON.parse(localStorage.getItem("token"))
+      console.log(setToken)
 
-  console.log(getToken)
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (email === getToken.email && password === getToken.password) {
-      console.log('Login successful!');
 
-      setIsAuth(true);
-      navigate('/');
-      toast.success('Here is your toast.');
-    } else {
-      // setError('Invalid username or password');
-      toast.error('invalid email or password');
+      console.log(response);
+      navigate("/costumer");
+
+     
+
+      
+
+    } catch (error) {
+      console.error(error);
     }
   };
 
-
-  if (goHomePage) {
-    return <Navigate to='/history' />;
-  }
-
-
   return (
-    <Containers>
-      <div className='form-box'>
+    <>
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <h2>Kirish</h2>
 
-        <Toaster
-          position='top-right'
-          toastOptions={{
-            className: '',
-            style: {
-              border: '1px solid #713200',
-              padding: '16px',
-              color: '#713200',
-            },
-          }}
-        />
-
-        <form onSubmit={handleSubmit} style={{marginTop: '50px'}} method='POST' action='localhost:5173/home'>
-          <strong className='text-black mb-5 d-block fs-1'>Admin</strong>
-          <div className='form__box'>
-            <input
-              className='form-control border-dark'
-              type='text'
-              value={email}
-              onChange={(e) => setUsername(e.target.value)}
-              name='email'
-
-              placeholder='Enter your email'
-            />
-            <input
-              type='password'
-              className='form-control border-dark'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              name='password'
-
-              placeholder='Enter your password'
-            />
-
-            <div className='login__btn'>
-              <Button
-
-                variant='success'
-                title={'sign'}
-                type='submit'
+          <div>
+            <div style={{ marginBottom: "13px" }} className="login_box">
+              <input
+                type="text"
+                name="userName"
+                placeholder="login"
+                value={values.userName}
+                onChange={handleInputChange}
               />
+              <AiOutlineUser className="users_icons" />
             </div>
 
-            {/*{error && <div style={{ color: 'red' }}>{error}</div>}*/}
+            <div className="login_box">
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={values.password}
+                onChange={handleInputChange}
+              />
+              <CiLock className="users_icons" />
+            </div>
           </div>
+
+          <button type="submit">Kirish</button>
         </form>
       </div>
-    </Containers>
+    </>
   );
 };
 

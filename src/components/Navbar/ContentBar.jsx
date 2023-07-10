@@ -1,7 +1,7 @@
 import React from 'react';
+import { FaRegUser } from 'react-icons/fa';
+import {FiSearch} from "react-icons/fi"
 
-
-import Logo from "../../assets/svg/logoipsum-245.svg"
 import './ContentBar.scss';
 
 function ContentBar() {
@@ -9,10 +9,18 @@ function ContentBar() {
     <div>
       <div className='history'>
         <div className='history__top'>
-          <img src={Logo} alt=""/> <span>Send</span>
+         <input className='search__input' type='text' placeholder='users'/>
+         <FiSearch color='black' size='20px' className='search__icon'/>
         </div>
-        <button className='btn btn-primary rounded-circle py-3'>A</button>
 
+        <div className='d-flex align-items-center gap-2'>
+        
+          <button className='btn btn-primary rounded-circle py-3'>
+            <FaRegUser size='25px' />
+          </button>
+
+          <span className='fs-4'>John Done</span>
+        </div>
       </div>
     </div>
   );
