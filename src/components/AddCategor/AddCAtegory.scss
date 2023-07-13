@@ -1,0 +1,75 @@
+.category__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 90vw;
+  height: 80vh;
+
+  form {
+    position: relative;
+   
+    width: 300px;
+    padding: 25px;
+    border: 1px solid #01384d;
+
+    h2 {
+      margin-bottom: 30px;
+      color: #000;
+      font-family: Montserrat, sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    label {
+      color: #000;
+      font-family: Montserrat, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    input {
+      margin: 10px 0 25px;
+      padding: 13px 20px;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: #fff;
+    }
+
+    span {
+      color: #000;
+      font-family: Montserrat, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    .addBtn {
+      width: 100%;
+      border-radius: 7px;
+      background: #01384d;
+      padding: 14px;
+      color: #fff;
+      text-align: center;
+      font-family: Montserrat, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .closeBtn{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #01384d;
+        color: white;
+        padding: 5px 8px;
+    }
+  }
+}

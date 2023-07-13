@@ -1,24 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineUser } from "react-icons/ai";
-import { CiLock } from "react-icons/ci";
-import axios from "axios";
-// import swal from 'sweetalert'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { AiOutlineUser } from 'react-icons/ai';
+import { CiLock } from 'react-icons/ci';
+import toast, { Toaster } from 'react-hot-toast';
 
-import "./Login.scss";
+const notify = () => toast.success('success login');
+
+import { login } from '../../reducers/actions/auth';
+
+import './Login.scss';
 
 export const Login = () => {
-  const navigate = useNavigate("");
-
- 
+  const dispatch = useDispatch();
   const [values, setValues] = useState({
-    userName: "",
-    password: "",
+    userName: '',
+    password: '',
   });
 
-
-  
-  
   const handleInputChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -26,62 +24,50 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        "http://localhost:1212/admin/login",
-        values
-      );
-
-
-      
-      const setToken = JSON.stringify(localStorage.setItem("setToken",response))
-
-      console.log(setToken)
-
-
-      console.log(response);
-      navigate("/costumer");
-
-     
-
-      
-
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(login(values.userName, values.password))
+      .then(() => {
+        // navigate("/costumer");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <>
-      <div className="wrapper">
+      <div className='wrapper'>
+        <Toaster position='top-right' reverseOrder={false} />
+
         <form onSubmit={handleSubmit}>
           <h2>Kirish</h2>
 
           <div>
-            <div style={{ marginBottom: "13px" }} className="login_box">
+            <div style={{ marginBottom: '13px' }} className='login_box'>
               <input
-                type="text"
-                name="userName"
-                placeholder="login"
+                type='text'
+                name='userName'
+                placeholder='login'
                 value={values.userName}
                 onChange={handleInputChange}
               />
-              <AiOutlineUser className="users_icons" />
+              <AiOutlineUser className='users_icons' />
             </div>
 
-            <div className="login_box">
+            <div className='login_box'>
               <input
-                type="password"
-                name="password"
-                placeholder="Password"
+                type='password'
+                name='password'
+                placeholder='Password'
                 value={values.password}
                 onChange={handleInputChange}
               />
-              <CiLock className="users_icons" />
+              <CiLock className='users_icons' />
             </div>
           </div>
 
-          <button type="submit">Kirish</button>
+          <button onClick={notify} type='submit'>
+            Kirish
+          </button>
         </form>
       </div>
     </>

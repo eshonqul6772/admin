@@ -43,12 +43,12 @@ export const register = (username, email, password) => (dispatch) => {
   );
 };
 
-export const login = (username, password) => (dispatch) => {
-  return AuthService.login(username, password).then(
+export const login = (userName, password) => (dispatch) => {
+  return AuthService.login(userName, password).then(
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { user: data },
+        payload: { token: data.token },
       });
 
       return Promise.resolve();

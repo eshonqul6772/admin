@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 
-import API from '../../api';
-import  Checkbox  from '../../components/Chekbox/index';
+import oredrsServises from '../../services/orders.service';
+
+import Checkbox from '../../components/Chekbox';
+
 import './Buyurtma.scss';
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-
 function Buyurtma() {
+  const [orders, setOrders] = useState([]);
+
   useEffect(() => {
-    API.getProduct().then((res) => {
-      console.log(res);
-    });
+    oredrsServises
+      .getOrders()
+      .then((res) => {
+        setOrders(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -31,20 +38,18 @@ function Buyurtma() {
             </thead>
 
             <tbody>
-              {arr.map((e, i) => {
+              {orders.map((e) => {
                 return (
-                  
-                    <tr key={i}>
-                      <td>{e}</td>
-                      <td>Eshonqul</td>
-                      <td>+998 971674748</td>
-                      <td>Ortopedik Eko matras</td>
-                      <td>4</td>
-                      <td>
-                        <Checkbox/>
-                      </td>
-                    </tr>
-                 
+                  <tr key={e.id}>
+                    <td>{e.id}</td>
+                    <td>{e.name}</td>
+                    <td>{e.number}</td>
+                    <td>{e.product_name}</td>
+                    <td>{e.count}</td>
+                    <td>
+                      <Checkbox />
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>

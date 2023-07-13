@@ -6,6 +6,7 @@
   align-items: center;
 
   form {
+    width: 390px;
     padding: 35px 30px;
     border-radius: 10px;
     border: 1px solid var(--1, #01384d);
@@ -13,6 +14,7 @@
     background: #fff;
 
     h2 {
+      margin-bottom: 40px;
       color: #01384d;
       text-align: center;
       font-family: sans-serif;

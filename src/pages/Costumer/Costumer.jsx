@@ -1,18 +1,22 @@
-import React from 'react';
-import { useEffect } from 'react';
-import {MdDelete} from "react-icons/md"
+import React, { useEffect, useState } from 'react';
+import { MdDelete } from 'react-icons/md';
 
-import API from '../../api';
-import  Checkbox  from '../../components/Chekbox/index';
+import servisesCostumer from '../../services/contact.service';
+import Checkbox from '../../components/Chekbox/index';
 import './Costumer.scss';
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-
 function Costumer() {
+  const [contact, setContact] = useState([]);
+
   useEffect(() => {
-    API.getProduct().then((res) => {
-      console.log(res);
-    });
+    servisesCostumer
+      .getContact()
+      .then((res) => {
+        setContact(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -31,22 +35,22 @@ function Costumer() {
             </thead>
 
             <tbody>
-              {arr.map((e, i) => {
+              {contact.map((e, i) => {
                 return (
-                  <>
-                    <tr key={i}>
-                      <td>{e}</td>
-                      <td>12:11 08/01/2003</td>
-                      <td>+998 971674748</td>
-                      <td>
-                        <Checkbox/>
-                      </td>
+                  <tr key={i}>
+                    <td>{e.id}</td>
+                    <td>{e.time}</td>
+                    <td>{e.number}</td>
+                    <td>
+                      <Checkbox />
+                    </td>
 
-                      <td>
-                        <button className='delet__btn'><MdDelete/></button>
-                      </td>
-                    </tr>
-                  </>
+                    <td>
+                      <button className='delet__btn'>
+                        <MdDelete />
+                      </button>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>

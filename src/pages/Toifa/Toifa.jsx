@@ -1,20 +1,44 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
-
-import API from '../../api';
+import axios from 'axios';
+import categoryService from '../../services/category.service.js';
+import AddCategory from '../../components/AddCategor/';
 
 import './Toifa.scss';
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
+function Category() {
+  const [category, setCAtegory] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-function Costumer() {
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
-    API.getProduct().then((res) => {
-      console.log(res);
-    });
+    categoryService
+      .getCategory()
+      .then((res) => {
+        setCAtegory(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  const hendelDelet = (id) => {
+    const confirum = window.confirm('Do you like delet');
+
+    if (confirum) {
+      axios.delete('http://localhost:1212/admin/' + id).then((res) => {
+        alert('delet user');
+        console.log(res);
+      });
+    }
+  };
 
   return (
     <>
@@ -32,37 +56,42 @@ function Costumer() {
             </thead>
 
             <tbody>
-              {arr.map((e, i) => {
+              {category.map((e, i) => {
                 return (
-                  <>
-                    <tr key={i}>
-                      <td style={{ textAlign: 'start' }}>Islombek</td>
-                      <td></td>
-                      <td></td>
-                      <td>{/* <Checkbox/> */}</td>
+                  <tr key={i}>
+                    <td style={{ textAlign: 'start' }}>{e.category}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{/* <Checkbox/> */}</td>
 
-                      <td>
-                        <div className='d-flex align-items-center justify-content-end gap-3'>
-                          <button className='edit__btn'>
-                            <MdModeEdit />
-                          </button>
-                          <button className='delet__btn'>
-                            <MdDelete />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </>
+                    <td>
+                      <div className='d-flex align-items-center justify-content-end gap-3'>
+                        <button className='edit__btn'>
+                          <MdModeEdit />
+                        </button>
+                        <button onClick={(e) => hendelDelet(e.id)} className='delet__btn'>
+                          <MdDelete />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>
           </table>
-        </div>
 
-       
+          <div>
+            <div className='add__btn-box'>
+              <button className='addBtn' onClick={openModal}>
+                Qo’shish
+              </button>
+            </div>
+            <AddCategory isOpen={isModalOpen} closeModal={closeModal} />
+          </div>
+        </div>
       </div>
     </>
   );
 }
 
-export default Costumer;
+export default Category;

@@ -1,17 +1,21 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { MdDelete,MdModeEdit } from 'react-icons/md';
+import { useEffect, useState } from 'react';
+import { MdDelete, MdModeEdit } from 'react-icons/md';
 
-import API from '../../api';
+import servisTegnolgy from '../../services/tegnolgy.service.js';
 import './Texnologiya.scss';
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-
 function Costumer() {
+  const [tegnolg, setTgnolg] = useState([]);
+
   useEffect(() => {
-    API.getProduct().then((res) => {
-      console.log(res);
-    });
+    servisTegnolgy
+      .getTegnolgy()
+      .then((res) => {
+        setTgnolg(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -30,14 +34,18 @@ function Costumer() {
             </thead>
 
             <tbody>
-              {arr.map((e, i) => {
+              {tegnolg.map((e) => {
                 return (
                   <>
-                    <tr key={i}>
-                      <td style={{ textAlign: 'start' }}>Menory foam</td>
-                      <td>Enim urna... </td>
-                      <td>youtube.com...</td>
-                      <td>{/* <Checkbox/> */}</td>
+                    <tr key={e.id}>
+                      <td style={{ textAlign: 'start' }}>{e.name}</td>
+                      <td>{e.thumbnail}</td>
+                      <td>
+                        <a target='_blank' href={`https//${e.link}`} rel='noreferrer'>
+                          {e.link}
+                        </a>
+                      </td>
+                      <td></td>
 
                       <td>
                         <div className='d-flex align-items-center justify-content-end gap-3'>

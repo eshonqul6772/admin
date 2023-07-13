@@ -1,19 +1,32 @@
 import React from 'react';
-import { useEffect } from 'react';
+import  { useEffect, useState } from 'react';
 import {MdModeEdit,MdDelete} from "react-icons/md"
 
-import API from '../../api';
+
+import ProductService from '../../services/product.service';
 import  Checkbox  from '../../components/Chekbox/index';
 import './Mahsulot.scss';
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
 
 function Buyurtma() {
-  useEffect(() => {
-    API.getProduct().then((res) => {
-      console.log(res);
+  
+
+const [productData , setProductData] =  useState([])
+
+
+
+useEffect(() => {
+  ProductService.getProduct()
+    .then((res) => {
+      setProductData(res.data.products);
+
+    })
+    .catch(err => {
+      console.log(err);
     });
-  }, []);
+}, []);
+
+console.log(productData)
 
   return (
     <>
@@ -33,15 +46,14 @@ function Buyurtma() {
             </thead>
 
             <tbody>
-              {arr.map((e, i) => {
+              {productData.map((e, i) => {
                 return (
-                  <>
                     <tr key={i}>
-                      <td>Lux Soft Memory</td>
-                      <td>Mebel J</td>
-                      <td>1 200000 som</td>
-                      <td>150kg</td>
-                      <td>16x678x12</td>
+                      <td>{e.name}</td>
+                      <td>{e.category}</td>
+                      <td>{e.cost}</td>
+                      <td>{e.weight}</td>
+                      <td>{e.size}</td>
                       <td>
                         <Checkbox/>
                       </td>
@@ -56,7 +68,6 @@ function Buyurtma() {
                         </div>
                       </td></td>
                     </tr>
-                  </>
                 );
               })}
             </tbody>

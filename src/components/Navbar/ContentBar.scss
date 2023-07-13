@@ -25,4 +25,23 @@
     top: 20px;
     right: 25px;
   }
+
+  .btn__user{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    color: white;
+
+    svg{
+      font-size: 50px;
+      background-color: white;
+      border-radius: 50%;
+    }
+
+    svg path{
+      fill:#003681 ;
+    }
+  }
 }
+
