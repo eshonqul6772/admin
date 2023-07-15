@@ -12,7 +12,12 @@ const create = (data) => {
   return axios.post(API_URL + '/categories', data, { headers: authHeader() });
 };
 
+const deleteCategory = (id) => {
+  return axios.delete(API_URL + '/categories/' + id, { headers: authHeader() });
+};
+
 export default {
   getCategory,
   create,
+  deleteCategory
 };

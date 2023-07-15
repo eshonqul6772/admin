@@ -3,22 +3,18 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Login from './pages/Login';
-import Toifa from './pages/Toifa';
-import Manzil from './pages/Manzil';
-import Buyurtma from './pages/Buyurtma';
+import Categories from './pages/Categories';
+import Location from './pages/Location';
+import Order from './pages/Order';
 import Costumer from './pages/Costumer';
-import Mahsulot from './pages/Mahsulot';
-import Texnolologiya from './pages/Texnologiya';
+import Product from './pages/Product';
+import Technologies from './pages/Technologies';
 
 import Menu from './components/Menu';
 import Navbar from './components/Navbar';
 
-
-
-
-
 function App() {
-  const { isLoggedIn } = useSelector(state => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   if (!isLoggedIn) {
     return (
@@ -37,12 +33,12 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route path='/' element={<Buyurtma />} />
+            <Route path='/' element={<Order />} />
             <Route path='/costumer' element={<Costumer />} />
-            <Route path='/toifa' element={<Toifa />} />
-            <Route path='/mahsulot' element={<Mahsulot />} />
-            <Route path='/texnolologiya' element={<Texnolologiya />} />
-            <Route path='/manzil' element={<Manzil />} />
+            <Route path='/toifa' element={<Categories />} />
+            <Route path='/mahsulot' element={<Product />} />
+            <Route path='/texnolologiya' element={<Technologies />} />
+            <Route path='/manzil' element={<Location />} />
           </Routes>
         </main>
       </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
 
 import servisTegnolgy from '../../services/tegnolgy.service.js';
-import './Texnologiya.scss';
+import './Technologies.scss';
 
 function Costumer() {
   const [tegnolg, setTgnolg] = useState([]);
@@ -17,6 +17,21 @@ function Costumer() {
         console.log(err);
       });
   }, []);
+
+  const hendelDelet = (id) => {
+    const confirm = window.confirm('Do you like delete');
+
+    if (confirm) {
+      servisTegnolgy
+        .remove(id)
+        .then((res) => {
+          setTgnolg(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <>
@@ -52,7 +67,7 @@ function Costumer() {
                           <button className='edit__btn'>
                             <MdModeEdit />
                           </button>
-                          <button className='delet__btn'>
+                          <button className='delet__btn' onClick={hendelDelet}>
                             <MdDelete />
                           </button>
                         </div>

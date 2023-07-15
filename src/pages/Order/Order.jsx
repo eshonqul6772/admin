@@ -5,9 +5,9 @@ import oredrsServises from '../../services/orders.service';
 
 import Checkbox from '../../components/Chekbox';
 
-import './Buyurtma.scss';
+import './Order.scss';
 
-function Buyurtma() {
+function Order() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -60,4 +60,4 @@ function Buyurtma() {
   );
 }
 
-export default Buyurtma;
+export default Order;

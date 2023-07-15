@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
-import axios from 'axios';
+import { Modal } from 'antd';
+
 import categoryService from '../../services/category.service.js';
-import AddCategory from '../../components/AddCategor/';
+import AddCategory from '../../components/AddCategory/';
+import './Categories.scss';
 
-import './Toifa.scss';
-
+const { confirm } = Modal;
 function Category() {
-  const [category, setCAtegory] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     categoryService
       .getCategory()
       .then((res) => {
-        setCAtegory(res.data);
+        setCategory(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -30,13 +22,24 @@ function Category() {
   }, []);
 
   const hendelDelet = (id) => {
-    const confirum = window.confirm('Do you like delet');
+    const deleted = confirm({
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
 
-    if (confirum) {
-      axios.delete('http://localhost:1212/admin/' + id).then((res) => {
-        alert('delet user');
-        console.log(res);
-      });
+    if (deleted) {
+      categoryService
+        .deleteCategory(id)
+        .then((res) => {
+          setCategory(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -56,10 +59,10 @@ function Category() {
             </thead>
 
             <tbody>
-              {category.map((e, i) => {
+              {category.map((element, i) => {
                 return (
                   <tr key={i}>
-                    <td style={{ textAlign: 'start' }}>{e.category}</td>
+                    <td style={{ textAlign: 'start' }}>{element.category}</td>
                     <td></td>
                     <td></td>
                     <td>{/* <Checkbox/> */}</td>
@@ -69,7 +72,8 @@ function Category() {
                         <button className='edit__btn'>
                           <MdModeEdit />
                         </button>
-                        <button onClick={(e) => hendelDelet(e.id)} className='delet__btn'>
+
+                        <button onClick={(e) => hendelDelet(element.id)} className='delet__btn'>
                           <MdDelete />
                         </button>
                       </div>
@@ -81,12 +85,7 @@ function Category() {
           </table>
 
           <div>
-            <div className='add__btn-box'>
-              <button className='addBtn' onClick={openModal}>
-                Qo’shish
-              </button>
-            </div>
-            <AddCategory isOpen={isModalOpen} closeModal={closeModal} />
+            <AddCategory />
           </div>
         </div>
       </div>

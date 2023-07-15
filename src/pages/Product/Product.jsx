@@ -1,32 +1,26 @@
 import React from 'react';
-import  { useEffect, useState } from 'react';
-import {MdModeEdit,MdDelete} from "react-icons/md"
-
+import { useEffect, useState } from 'react';
+import { MdModeEdit, MdDelete } from 'react-icons/md';
 
 import ProductService from '../../services/product.service';
-import  Checkbox  from '../../components/Chekbox/index';
-import './Mahsulot.scss';
-
+import Checkbox from '../../components/Chekbox/index';
+import './Product.scss';
+import AddLocation from './AddLocation.jsx';
 
 function Buyurtma() {
-  
+  const [productData, setProductData] = useState([]);
 
-const [productData , setProductData] =  useState([])
+  useEffect(() => {
+    ProductService.getProduct()
+      .then((res) => {
+        setProductData(res.data.products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-
-
-useEffect(() => {
-  ProductService.getProduct()
-    .then((res) => {
-      setProductData(res.data.products);
-
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}, []);
-
-console.log(productData)
+  console.log(productData);
 
   return (
     <>
@@ -48,16 +42,18 @@ console.log(productData)
             <tbody>
               {productData.map((e, i) => {
                 return (
-                    <tr key={i}>
-                      <td>{e.name}</td>
-                      <td>{e.category}</td>
-                      <td>{e.cost}</td>
-                      <td>{e.weight}</td>
-                      <td>{e.size}</td>
+                  <tr key={i}>
+                    <td>{e.name}</td>
+                    <td>{e.category}</td>
+                    <td>{e.cost}</td>
+                    <td>{e.weight}</td>
+                    <td>{e.size}</td>
+                    <td>
+                      <Checkbox />
+                    </td>
+                    <td>
+                      {' '}
                       <td>
-                        <Checkbox/>
-                      </td>
-                      <td> <td>
                         <div className='d-flex align-items-center justify-content-end gap-3'>
                           <button className='edit__btn'>
                             <MdModeEdit />
@@ -66,12 +62,14 @@ console.log(productData)
                             <MdDelete />
                           </button>
                         </div>
-                      </td></td>
-                    </tr>
+                      </td>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>
           </table>
+          <AddLocation />
         </div>
       </div>
     </>

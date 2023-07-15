@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
-import {TiLocation} from "react-icons/ti"
+import { TiLocation } from 'react-icons/ti';
 
-
-import AddresService from "../../services/address.service.js"
-import './Manzil.scss';
-
-
-
+import AddresService from '../../services/address.service.js';
+import './Location.scss';
+import AddLocation from '../Product/AddLocation.jsx';
 
 function Address() {
-
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [address, setAddress] = useState([]);
 
   useEffect(() => {
-    AddresService
-      .getAdress()
+    AddresService.getAdress()
       .then((res) => {
         setAddress(res.data);
       })
@@ -25,8 +20,7 @@ function Address() {
       });
   }, []);
 
-  console.log(address)
-
+  console.log(address);
 
   return (
     <>
@@ -46,34 +40,28 @@ function Address() {
             <tbody>
               {address.map((e, i) => {
                 return (
-                
-                    <tr key={i}>
-                      <td style={{ textAlign: 'start' }}>{e.geolacation}</td>
-                      <td>{e.destination}</td>
-                      <td>{e.location}</td>
-                      <td>
-                      {/* <Checkbox/> */}
-                      </td>
+                  <tr key={i}>
+                    <td style={{ textAlign: 'start' }}>{e.geolacation}</td>
+                    <td>{e.destination}</td>
+                    <td>{e.location}</td>
+                    <td>{/* <Checkbox/> */}</td>
 
-                      <td>
-                        <div className='d-flex align-items-center justify-content-end gap-3'>
-                          <button className='edit__btn'>
-                            <MdModeEdit />
-                          </button>
-                          <button className='delet__btn'>
-                            <MdDelete />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                
+                    <td>
+                      <div className='d-flex align-items-center justify-content-end gap-3'>
+                        <button className='edit__btn'>
+                          <MdModeEdit />
+                        </button>
+                        <button className='delet__btn'>
+                          <MdDelete />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-
-       
       </div>
     </>
   );

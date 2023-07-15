@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
+import { Modal } from 'antd';
+
+const { confirm } = Modal;
 
 import servisesCostumer from '../../services/contact.service';
 import Checkbox from '../../components/Chekbox/index';
@@ -19,6 +22,28 @@ function Costumer() {
       });
   }, []);
 
+  const hendelDelete = () => {
+    confirm({
+      onOk() {
+        return true;
+      },
+      onCancel() {
+        return false;
+      },
+    });
+
+    if (confirm) {
+      servisesCostumer
+        .deleteContact()
+        .then((res) => {
+          setContact(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <>
       <div className='table__box'>
@@ -37,7 +62,7 @@ function Costumer() {
             <tbody>
               {contact.map((e, i) => {
                 return (
-                  <tr key={i}>
+                  <tr key={e.id}>
                     <td>{e.id}</td>
                     <td>{e.time}</td>
                     <td>{e.number}</td>
@@ -46,7 +71,7 @@ function Costumer() {
                     </td>
 
                     <td>
-                      <button className='delet__btn'>
+                      <button className='delet__btn' onClick={hendelDelete}>
                         <MdDelete />
                       </button>
                     </td>

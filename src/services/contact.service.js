@@ -8,6 +8,11 @@ const getContact = () => {
   return axios.get(API_URL + '/contact/1', { headers: authHeader() });
 };
 
+const deleteContact = () => {
+  return axios.delete(API_URL + '/contact/1', { headers: authHeader() });
+};
+
 export default {
-    getContact,
+  getContact,
+  deleteContact,
 };

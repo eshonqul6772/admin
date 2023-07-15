@@ -12,7 +12,12 @@ const create = (data) => {
   return axios.post(API_URL + '/technology', data, { headers: authHeader() });
 };
 
+const remove = (data) => {
+  return axios.post(API_URL + '/technology', data, { headers: authHeader() });
+};
+
 export default {
   getTegnolgy,
   create,
+  remove,
 };
