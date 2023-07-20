@@ -5,7 +5,7 @@ import { MdModeEdit, MdDelete } from 'react-icons/md';
 import ProductService from '../../services/product.service';
 import Checkbox from '../../components/Chekbox/index';
 import './Product.scss';
-import AddLocation from './AddLocation.jsx';
+import AddLocation from './AddProduct';
 
 function Buyurtma() {
   const [productData, setProductData] = useState([]);

@@ -8,7 +8,7 @@ const AddLocation = () => {
   return (
     <>
       <Button type='primary' onClick={() => setOpen(true)}>
-        Qo'shish
+        Qoshish
       </Button>
       <Modal
         centered

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
-import { Modal } from 'antd';
-
-const { confirm } = Modal;
 
 import servisesCostumer from '../../services/contact.service';
 import Checkbox from '../../components/Chekbox/index';
@@ -23,16 +20,9 @@ function Costumer() {
   }, []);
 
   const hendelDelete = () => {
-    confirm({
-      onOk() {
-        return true;
-      },
-      onCancel() {
-        return false;
-      },
-    });
+    const confirmm = window.confirm('do you like ');
 
-    if (confirm) {
+    if (confirmm) {
       servisesCostumer
         .deleteContact()
         .then((res) => {
@@ -60,7 +50,7 @@ function Costumer() {
             </thead>
 
             <tbody>
-              {contact.map((e, i) => {
+              {contact.map((e) => {
                 return (
                   <tr key={e.id}>
                     <td>{e.id}</td>

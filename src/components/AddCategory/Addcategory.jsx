@@ -17,32 +17,27 @@ const AddCategory = () => {
     setIsModalOpen(false);
   };
 
-  const [inputData, setInputData] = useState({
-    category: '',
-  });
-
   const [technology, setTexnology] = useState({
     category: '',
-    is_active: '',
   });
 
   const hendelSubmit = (evt) => {
     evt.preventDefault();
 
-    const data = {
+    const datas = {
       category: technology.category,
-      is_active: technology.is_active,
+      // is_active: technology.is_active,
     };
 
-    AddTexnolgyService.create(data)
+    AddTexnolgyService.create(datas)
       .then((res) => {
         alert('add category');
+        console.log(res)
       })
       .catch((err) => {
         console.log(err);
       });
-
-    console.log(data);
+   
   };
 
   return (
@@ -57,7 +52,7 @@ const AddCategory = () => {
           <input
             type='text'
             required
-            onChange={(e) => setInputData({ ...inputData, category: e.target.value })}
+            onChange={(e) => setTexnology({ ...technology, category: e.target.value })}
             placeholder='masalan: Model B'
           />
           <div style={{ marginBottom: '41px' }} className='d-flex w-100 justify-content-between'>

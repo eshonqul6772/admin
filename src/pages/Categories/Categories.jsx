@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
-import { Modal } from 'antd';
 
 import categoryService from '../../services/category.service.js';
 import AddCategory from '../../components/AddCategory/';
 import './Categories.scss';
 
-const { confirm } = Modal;
 function Category() {
   const [category, setCategory] = useState([]);
 
@@ -22,14 +20,7 @@ function Category() {
   }, []);
 
   const hendelDelet = (id) => {
-    const deleted = confirm({
-      onOk() {
-        console.log('OK');
-      },
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
+    const deleted = confirm('do you like');
 
     if (deleted) {
       categoryService
@@ -38,10 +29,16 @@ function Category() {
           setCategory(res.data);
         })
         .catch((err) => {
+          //TODO
           console.log(err);
         });
     }
+
+    //TODO
+    window.reload();
   };
+
+  console.log(category);
 
   return (
     <>

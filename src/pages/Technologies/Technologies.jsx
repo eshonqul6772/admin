@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
 
-import servisTegnolgy from '../../services/tegnolgy.service.js';
+import servisTegnolgy from '../../services/tegnolgy.service.js'; 
+import AddTechnoligy from "./AddTexnolgy.jsx"
 import './Technologies.scss';
 
 function Costumer() {
@@ -78,6 +79,8 @@ function Costumer() {
               })}
             </tbody>
           </table>
+
+          <AddTechnoligy/>
         </div>
       </div>
     </>

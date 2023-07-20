@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
-import { TiLocation } from 'react-icons/ti';
+
 
 import AddresService from '../../services/address.service.js';
 import './Location.scss';
-import AddLocation from '../Product/AddLocation.jsx';
+
 
 function Address() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [address, setAddress] = useState([]);
 
   useEffect(() => {
