@@ -9,15 +9,20 @@ const getCategory = () => {
 };
 
 const create = (data) => {
-  return axios.post(API_URL + '/categories', data, { headers: authHeader() });
+  return axios.post(API_URL + '/categories ', data, { headers: authHeader() });
 };
 
 const deleteCategory = (id) => {
   return axios.delete(API_URL + '/categories/' + id, { headers: authHeader() });
 };
 
+const ubdateCategory = (id) => {
+  return axios.put(API_URL + '/categories/' + id, { headers: authHeader() });
+};
+
 export default {
   getCategory,
   create,
-  deleteCategory
+  deleteCategory,
+  ubdateCategory
 };

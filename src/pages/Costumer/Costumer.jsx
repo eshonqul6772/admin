@@ -19,14 +19,14 @@ function Costumer() {
       });
   }, []);
 
-  const hendelDelete = () => {
+  const hendelDelete = (id) => {
     const confirmm = window.confirm('do you like ');
 
     if (confirmm) {
       servisesCostumer
         .deleteContact()
         .then((res) => {
-          setContact(res.data.data);
+          setContact(res.data, id);
         })
         .catch((err) => {
           console.log(err);
@@ -61,7 +61,7 @@ function Costumer() {
                     </td>
 
                     <td>
-                      <button className='delet__btn' onClick={hendelDelete}>
+                      <button className='delet__btn' onClick={(e)=> hendelDelete(e.id)}>
                         <MdDelete />
                       </button>
                     </td>

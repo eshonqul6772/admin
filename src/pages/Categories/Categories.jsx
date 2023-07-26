@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
+import {  Modal } from 'antd';
+
+const { confirm } = Modal;
 
 import categoryService from '../../services/category.service.js';
 import AddCategory from '../../components/AddCategory/';
 import './Categories.scss';
 
 function Category() {
+
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -19,26 +23,41 @@ function Category() {
       });
   }, []);
 
-  const hendelDelet = (id) => {
-    const deleted = confirm('do you like');
 
-    if (deleted) {
+
+  const showConfirm = () => {
+  
+      
+        confirm({
+
+          onOk() {
+            console.log('OK');
+          },
+
+          onCancel() {
+            console.log('Cancel');
+          },
+
+        
+        
+  });
+
+}
+
+  const hendelDelet = (id) => {
+    
       categoryService
         .deleteCategory(id)
         .then((res) => {
           setCategory(res.data);
         })
         .catch((err) => {
-          //TODO
           console.log(err);
         });
-    }
-
-    //TODO
-    window.reload();
+        showConfirm()
   };
 
-  console.log(category);
+
 
   return (
     <>
@@ -70,7 +89,7 @@ function Category() {
                           <MdModeEdit />
                         </button>
 
-                        <button onClick={(e) => hendelDelet(element.id)} className='delet__btn'>
+                        <button onClick={() => hendelDelet(element.id)} className='delet__btn'>
                           <MdDelete />
                         </button>
                       </div>
@@ -79,7 +98,7 @@ function Category() {
                 );
               })}
             </tbody>
-          </table>
+          </table>     
 
           <div>
             <AddCategory />

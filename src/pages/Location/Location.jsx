@@ -20,8 +20,6 @@ function Address() {
       });
   }, []);
 
-  console.log(address);
-
   return (
     <>
       <div className='table__box'>

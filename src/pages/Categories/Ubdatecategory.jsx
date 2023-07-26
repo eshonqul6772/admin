@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
 
-import AddCategoryService from '../../services/category.service.js';
-import './AddCAtegory.scss';
+import Ubdate from '../../services/category.service.js';
+
 import Checkbox from '../Chekbox/Checkbox';
 
 const AddCategory = () => {
@@ -34,12 +34,12 @@ const AddCategory = () => {
 
     const datas = {
       category: category.category,
-      isActive: true
+      // is_active: category.is_active,
     };
 
-    AddCategoryService.create(datas)
+    Ubdate.create(datas)
       .then((res) => {
-       
+        alert('add category');
         console.log(res)
       })
       .catch((err) => {
