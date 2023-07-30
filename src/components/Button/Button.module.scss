@@ -36,14 +36,15 @@
 
     &-danger {
       background-color: rgb(244, 200, 200);
-      color: var(--btn-danger);
+      color: #D61F1F;
       padding: 9px 7px;
     }
 
     &-danger-delete {
-      background-color: rgb(244, 200, 200);
-      color: var(--btn-danger);
-   
+      background-color: rgb(224, 204, 204);
+      color: #D61F1F;
+      border-radius: 5px;
+      font-weight: bold;
     }
 
     &-success {

@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
-import {  Modal } from 'antd';
-
-const { confirm } = Modal;
+import { Modal } from 'antd';
 
 import categoryService from '../../services/category.service.js';
 import AddCategory from '../../components/AddCategory/';
 import './Categories.scss';
+import Button from '../../components/Button';
+import Ubdatecategory from './Ubdatecategory.jsx';
 
 function Category() {
-
   const [category, setCategory] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     categoryService
@@ -23,41 +33,17 @@ function Category() {
       });
   }, []);
 
-
-
-  const showConfirm = () => {
-  
-      
-        confirm({
-
-          onOk() {
-            console.log('OK');
-          },
-
-          onCancel() {
-            console.log('Cancel');
-          },
-
-        
-        
-  });
-
-}
-
   const hendelDelet = (id) => {
-    
-      categoryService
-        .deleteCategory(id)
-        .then((res) => {
-          setCategory(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-        showConfirm()
+    categoryService
+      .deleteCategory(id)
+      .then((res) => {
+        setCategory(category.filter((p) => p.id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    handleCancel();
   };
-
-
 
   return (
     <>
@@ -85,20 +71,35 @@ function Category() {
 
                     <td>
                       <div className='d-flex align-items-center justify-content-end gap-3'>
-                        <button className='edit__btn'>
-                          <MdModeEdit />
-                        </button>
+                        <Ubdatecategory getValue={element} />
 
-                        <button onClick={() => hendelDelet(element.id)} className='delet__btn'>
+                        <button onClick={showModal} className='delet__btn'>
                           <MdDelete />
                         </button>
                       </div>
                     </td>
+
+                    <Modal
+                      footer={null}
+                      title='Haqiqatdan ham o’chirmoqchimisiz?'
+                      open={isModalOpen}
+                      onOk={handleOk}
+                      onCancel={handleCancel}
+                    >
+                      <div className='d-flex justify-content-end gap-4 mt-4'>
+                        <Button title="yo'q" variant='neutral' onClick={handleCancel} />
+                        <Button
+                          onClick={() => hendelDelet(element.id)}
+                          title='ha'
+                          variant='danger-delete'
+                        />
+                      </div>
+                    </Modal>
                   </tr>
                 );
               })}
             </tbody>
-          </table>     
+          </table>
 
           <div>
             <AddCategory />

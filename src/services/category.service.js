@@ -16,7 +16,7 @@ const deleteCategory = (id) => {
   return axios.delete(API_URL + '/categories/' + id, { headers: authHeader() });
 };
 
-const ubdateCategory = (id) => {
+const updateCategory = (id) => {
   return axios.put(API_URL + '/categories/' + id, { headers: authHeader() });
 };
 
@@ -24,5 +24,5 @@ export default {
   getCategory,
   create,
   deleteCategory,
-  ubdateCategory
+  updateCategory,
 };

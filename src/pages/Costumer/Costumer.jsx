@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 
-import servisesCostumer from '../../services/contact.service';
+import servicesCostumer from '../../services/contact.service';
 import Checkbox from '../../components/Chekbox/index';
 import './Costumer.scss';
 
@@ -9,7 +9,7 @@ function Costumer() {
   const [contact, setContact] = useState([]);
 
   useEffect(() => {
-    servisesCostumer
+    servicesCostumer
       .getContact()
       .then((res) => {
         setContact(res.data.data);
@@ -18,21 +18,6 @@ function Costumer() {
         console.log(err);
       });
   }, []);
-
-  const hendelDelete = (id) => {
-    const confirmm = window.confirm('do you like ');
-
-    if (confirmm) {
-      servisesCostumer
-        .deleteContact()
-        .then((res) => {
-          setContact(res.data, id);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
 
   return (
     <>
@@ -61,7 +46,7 @@ function Costumer() {
                     </td>
 
                     <td>
-                      <button className='delet__btn' onClick={(e)=> hendelDelete(e.id)}>
+                      <button className='delet__btn'>
                         <MdDelete />
                       </button>
                     </td>

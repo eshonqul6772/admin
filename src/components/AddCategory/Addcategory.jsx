@@ -6,7 +6,6 @@ import './AddCAtegory.scss';
 import Checkbox from '../Chekbox/Checkbox';
 
 const AddCategory = () => {
-
   const [category, setCategory] = useState({
     category: '',
   });
@@ -23,29 +22,25 @@ const AddCategory = () => {
     setIsModalOpen(false);
   };
 
-  const hendelInput = (evnt)=>{
-      evnt.preventDefault()
-      setCategory({ ...category, category: evnt.target.value })
-  }
-
+  const hendelInput = (evnt) => {
+    evnt.preventDefault();
+    setCategory({ ...category, category: evnt.target.value });
+  };
 
   const hendelSubmit = (evt) => {
-    evt.preventDefault();
-
     const datas = {
       category: category.category,
-      isActive: true
+      isActive: true,
     };
 
     AddCategoryService.create(datas)
       .then((res) => {
-       
-        console.log(res)
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-   
+    handleCancel();
   };
 
   return (
@@ -53,16 +48,11 @@ const AddCategory = () => {
       <Button type={'primary'} onClick={showModal}>
         Qoshish
       </Button>
-      <Modal  width={400} footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal width={400} footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <form onSubmit={hendelSubmit} className='form__category'>
           <h2>Qo’shish</h2>
           <label>Kategory Qo’shish</label>
-          <input
-            type='text'
-            required
-            onChange={hendelInput}
-            placeholder='masalan: Model B'
-          />
+          <input type='text' required onChange={hendelInput} placeholder='masalan: Model B' />
           <div style={{ marginBottom: '41px' }} className='d-flex w-100 justify-content-between'>
             <span>Holat</span>
             <Checkbox />

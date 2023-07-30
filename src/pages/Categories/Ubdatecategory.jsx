@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
+import { MdModeEdit } from 'react-icons/md';
 
-import Ubdate from '../../services/category.service.js';
+import UpdateServices from '../../services/category.service.js';
+import Checkbox from '../../components/Chekbox';
 
-import Checkbox from '../Chekbox/Checkbox';
-
-const AddCategory = () => {
+// eslint-disable-next-line react/prop-types
+const Update = ({ getValue }) => {
+  const data = getValue;
 
   const [category, setCategory] = useState({
-    category: '',
+    category: getValue.value,
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
+    console.log(data);
     setIsModalOpen(true);
   };
   const handleOk = () => {
@@ -23,41 +26,40 @@ const AddCategory = () => {
     setIsModalOpen(false);
   };
 
-  const hendelInput = (evnt)=>{
-      evnt.preventDefault()
-      setCategory({ ...category, category: evnt.target.value })
-  }
-
+  const hendelInput = (evnt) => {
+    evnt.preventDefault();
+    setCategory({ ...category, category: evnt.target.value });
+  };
 
   const hendelSubmit = (evt) => {
     evt.preventDefault();
 
     const datas = {
       category: category.category,
-      // is_active: category.is_active,
     };
 
-    Ubdate.create(datas)
+    UpdateServices.updateCategory(datas)
       .then((res) => {
-        alert('add category');
-        console.log(res)
+        alert('update category');
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-   
   };
 
   return (
     <>
-      <Button type={'primary'} onClick={showModal}>
-        Qoshish
-      </Button>
-      <Modal  width={400} footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <button onClick={showModal} className='edit__btn'>
+        <MdModeEdit />
+      </button>
+
+      <Modal width={400} footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <form onSubmit={hendelSubmit} className='form__category'>
           <h2>Qo’shish</h2>
-          <label>Kategory Qo’shish</label>
+          <label>Kategory Ozgartirish</label>
           <input
+            defaultValue={category.value}
             type='text'
             required
             onChange={hendelInput}
@@ -67,11 +69,11 @@ const AddCategory = () => {
             <span>Holat</span>
             <Checkbox />
           </div>
-          <button className='addBtn'>Qoshish</button>
+          <button className='addBtn'>Ubdate</button>
         </form>
       </Modal>
     </>
   );
 };
 
-export default AddCategory;
+export default Update;
