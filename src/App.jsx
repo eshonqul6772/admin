@@ -12,6 +12,7 @@ import Technologies from './pages/Technologies';
 
 import Menu from './components/Menu';
 import Navbar from './components/Navbar';
+import Ubdatecategory from "./pages/Categories/Ubdatecategory.jsx";
 
 function App() {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -39,6 +40,7 @@ function App() {
             <Route path='/mahsulot' element={<Product />} />
             <Route path='/texnolologiya' element={<Technologies />} />
             <Route path='/manzil' element={<Location />} />
+            <Route path='udate-category/:id' element={<Ubdatecategory/>}/>
           </Routes>
         </main>
       </div>

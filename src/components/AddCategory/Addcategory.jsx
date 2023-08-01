@@ -6,6 +6,7 @@ import './AddCAtegory.scss';
 import Checkbox from '../Chekbox/Checkbox';
 
 const AddCategory = () => {
+
   const [category, setCategory] = useState({
     category: '',
   });
@@ -28,6 +29,7 @@ const AddCategory = () => {
   };
 
   const hendelSubmit = (evt) => {
+
     const datas = {
       category: category.category,
       isActive: true,
@@ -41,6 +43,8 @@ const AddCategory = () => {
         console.log(err);
       });
     handleCancel();
+
+    setCategory('')
   };
 
   return (

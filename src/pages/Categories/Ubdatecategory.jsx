@@ -1,65 +1,56 @@
-import React, { useState } from 'react';
-import { Modal } from 'antd';
-import { MdModeEdit } from 'react-icons/md';
+import React, { useState, useEffect } from 'react';
+import {useNavigate} from "react-router-dom";
 
 import UpdateServices from '../../services/category.service.js';
 import Checkbox from '../../components/Chekbox';
 
-// eslint-disable-next-line react/prop-types
-const Update = ({ getValue }) => {
-  const data = getValue;
 
-  const [category, setCategory] = useState({
-    category: getValue.value,
-  });
+const Update = ( ) => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate('')
+  const { id } = useParams()
+  const [subject, setSubject] = useState([])
 
-  const showModal = () => {
-    console.log(data);
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const [values, setValues] = useState({
+    name: '',
+    status: "ACTIVE"
+  })
 
-  const hendelInput = (evnt) => {
-    evnt.preventDefault();
-    setCategory({ ...category, category: evnt.target.value });
-  };
 
-  const hendelSubmit = (evt) => {
-    evt.preventDefault();
 
-    const datas = {
-      category: category.category,
-    };
+  useEffect(() => {
+    UpdateServices.getUserid(id).then((res) => {
+      const { name, status } = res.data;
+      const findSubject = {
+        name,
+        status
+      }
+      setValues(findSubject)
+    })
+        .catch((err) => console.log(err))
 
-    UpdateServices.updateCategory(datas)
-      .then((res) => {
-        alert('update category');
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  }, []);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    UpdateServices.ubdate().then((e) => {
+      console.log()
+    }).catch((e) => {
+      console.log(e)
+    })
+
+    navigate('/subject')
+  }
+
 
   return (
     <>
-      <button onClick={showModal} className='edit__btn'>
-        <MdModeEdit />
-      </button>
-
-      <Modal width={400} footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <form onSubmit={hendelSubmit} className='form__category'>
+      <form onSubmit={handleSubmit} className='form__category'>
           <h2>Qo’shish</h2>
           <label>Kategory Ozgartirish</label>
           <input
-            defaultValue={category.value}
             type='text'
             required
             onChange={hendelInput}
@@ -71,7 +62,6 @@ const Update = ({ getValue }) => {
           </div>
           <button className='addBtn'>Ubdate</button>
         </form>
-      </Modal>
     </>
   );
 };
