@@ -49,6 +49,18 @@ function Category() {
             });
     }, []);
 
+    const hendelDelet = (id) => {
+        categoryService
+            .deleteCategory(id)
+            .then((res) => {
+                setCategory(category.filter((p) => p.id !== id));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        handleCancel();
+    };
+
     const Operation = ({id}) => {
         return (
             <>
@@ -79,7 +91,6 @@ function Category() {
                 </Modal>
             </>
         )
-
     }
     
     const dataSource =
@@ -91,26 +102,12 @@ function Category() {
                     operation: <Operation id={element.id}/>,
                 }
             )
-
-        })
-
-
-    const hendelDelet = (id) => {
-        categoryService
-            .deleteCategory(id)
-            .then((res) => {
-                setCategory(category.filter((p) => p.id !== id));
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        handleCancel();
-    };
+        });
 
     return (
         <>
             <div className='table__box'>
-                <Table dataSource={dataSource} columns={columns}/>;
+                <Table dataSource={dataSource} columns={columns}/>
                 <div>
                     <AddCategory/>
                 </div>

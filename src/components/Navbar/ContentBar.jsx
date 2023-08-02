@@ -25,7 +25,7 @@ const navigate = useNavigate("")
 
         <div className='d-flex align-items-center gap-2'>
           <button onClick={hendelBtn} className='btn__user'>
-          <FaRegUserCircle/>  <span className='fs-4'>John Done</span>
+          <FaRegUserCircle/>  <span className='fs-4'>Eshonqul A</span>
           </button>
         </div>
       </div>

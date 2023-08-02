@@ -12,8 +12,8 @@ const create = (data) => {
   return axios.post(API_URL + '/technology', data, { headers: authHeader() });
 };
 
-const remove = (data) => {
-  return axios.post(API_URL + '/technology', data, { headers: authHeader() });
+const remove = (id) => {
+  return axios.delete(API_URL + '/technology/'+id, { headers: authHeader() });
 };
 
 export default {

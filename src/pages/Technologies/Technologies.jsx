@@ -1,18 +1,31 @@
 import { useEffect, useState } from 'react';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
+import { Modal } from 'antd';
 
-import servisTegnolgy from '../../services/tegnolgy.service.js'; 
-import AddTechnoligy from "./AddTexnolgy.jsx"
+import servesTechnology from '../../services/tegnolgy.service.js';
+import AddTechnoligy from "./AddTexnolgy.jsx";
+import Button from '../../components/Button';
 import './Technologies.scss';
 
 function Costumer() {
-  const [tegnolg, setTgnolg] = useState([]);
+  const [tegnolg, setTegnolg] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
-    servisTegnolgy
+    servesTechnology
       .getTegnolgy()
       .then((res) => {
-        setTgnolg(res.data);
+        setTegnolg(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -20,20 +33,16 @@ function Costumer() {
   }, []);
 
   const hendelDelet = (id) => {
-    const confirm = window.confirm('Do you like delete');
-
-    if (confirm) {
-      servisTegnolgy
-        .remove(id)
-        .then((res) => {
-          setTgnolg(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    servesTechnology
+      .remove(id)
+      .then((res) => {
+        setTegnolg(tegnolg.filter((p) => p.id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(tegnolg)
   };
-
   return (
     <>
       <div className='table__box'>
@@ -69,10 +78,28 @@ function Costumer() {
                             <MdModeEdit />
                           </button>
                           <button className='delet__btn' onClick={hendelDelet}>
-                            <MdDelete />
+                            <MdDelete onClick={showModal}/>
                           </button>
                         </div>
                       </td>
+
+
+                    <Modal
+                      footer={null}
+                      title='Haqiqatdan ham o’chirmoqchimisiz?'
+                      open={isModalOpen}
+                      onOk={handleOk}
+                      onCancel={handleCancel}
+                    >
+                      <div className='d-flex justify-content-end gap-4 mt-4'>
+                        <Button title="yo'q" variant='neutral' onClick={handleCancel} />
+                        <Button
+                          onClick={() => hendelDelet(e.id)}
+                          title='ha'
+                          variant='danger-delete'
+                        />
+                      </div>
+                    </Modal>
                     </tr>
                   </>
                 );

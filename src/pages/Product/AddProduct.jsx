@@ -1,20 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Modal, Input} from 'antd';
 
 
 const {TextArea,} = Input;
 
 import AddProduct from "../../services/product.service.js"
-import Img from '../../assets/imgs/Image 5.png';
 import Checkbox from '../../components/Chekbox/index.jsx';
+import Img from '../../assets/imgs/Image 5.png';
+
 
 
 const AddLocation = () => {
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [category, setCategory] = useState([])
+
 
     const [product, setProduct] = useState({
         product_images: "",
@@ -26,14 +27,14 @@ const AddLocation = () => {
         warranty: '',
         capacity: '',
         new_cost: '',
-        status: '',
+        body: '',
     });
-
 
     const hendelSubmit = (evt) => {
 
-        const datas = {
-            product_image: product.product_images,
+        evt.preventDefault()
+        const data = {
+            images: product.product_images,
             category: product.category,
             name: product.name,
             cost: product.cost,
@@ -41,13 +42,14 @@ const AddLocation = () => {
             size: product.size,
             warranty: product.warranty,
             capacity: product.capacity,
-            new_cost: product.new_cost,
+            newCost: product.new_cost,
+            body: product.body,
+            discount: false,
             isActive: true,
+            new: true,
         };
 
-        console.log(datas)
-
-        AddProduct.create(datas)
+        AddProduct.create(id,data)
             .then((res) => {
                 console.log(res);
             })
@@ -56,9 +58,19 @@ const AddLocation = () => {
             });
         setProduct('')
 
-        handleCancel()
-
     };
+
+    useEffect(()=>{
+        AddProduct.getProduct().then((response)=>{
+            setCategory(response.data)
+        })
+    },[])
+
+
+    const cate = category.categories;
+
+    console.log(cate)
+
 
 
     const [open, setOpen] = useState(false);
@@ -81,7 +93,7 @@ const AddLocation = () => {
 
                         <div className='form__list'>
                             <div>
-                                <Input onChange={(evnt) => setProduct({...product,  product_images: evnt.target.value})}
+                                <Input onChange={(event) => setProduct({...product,  product_images: event.target.value})}
                                        style={{display: 'none'}} id='file' type='file'/>
                                 <label htmlFor='file'>
                                     <img className='file__img' src={Img} alt=''/>
@@ -93,9 +105,15 @@ const AddLocation = () => {
                                         Toifalar
                                     </label>
                                     <select name='Categories' id='categories'>
-                                        <option value='ModelC'>Model C</option>
-                                        <option value='ModelC'>Model C</option>
-                                        <option value='ModelC'>Model C</option>
+                                        {
+                                            cate.map((e)=>{
+                                                return(
+                                                    <>
+                                                        <option value={e.category}>{e.category}</option>
+                                                    </>
+                                                )
+                                            })
+                                        }
                                     </select>
                                 </div>
 
@@ -103,7 +121,7 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Tovar nomi
                                     </label>
-                                    <Input onChange={(evnt) => setProduct({...product, name: evnt.target.value})}
+                                    <Input onChange={(event) => setProduct({...product, name: event.target.value})}
                                            placeholder='masalan: Lux Soft Memory'/>
                                 </div>
 
@@ -111,7 +129,7 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Narxi
                                     </label>
-                                    <Input onChange={(evnt) => setProduct({...product, cost: evnt.target.value})}
+                                    <Input onChange={(event) => setProduct({...product, cost: event.target.value})}
                                            placeholder='masalan: 20 000'/>
                                 </div>
 
@@ -119,7 +137,7 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Yuklama
                                     </label>
-                                    <Input  onChange={(evnt) => setProduct({...product, weight: evnt.target.value})} placeholder='masalan: 200 kg'/>
+                                    <Input  onChange={(event) => setProduct({...product, weight: event.target.value})} placeholder='masalan: 200 kg'/>
                                 </div>
                             </div>
 
@@ -128,28 +146,28 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Razmeri
                                     </label>
-                                    <Input  onChange={(evnt) => setProduct({...product, size: evnt.target.value})} placeholder='masalan: 200 x 140 x 40'/>
+                                    <Input  onChange={(event) => setProduct({...product, size: event.target.value})} placeholder='masalan: 200 x 140 x 40'/>
                                 </div>
 
                                 <div className='d-flex flex-column mb-3'>
                                     <label className='form__category-lable' htmlFor=''>
                                         Kafolat
                                     </label>
-                                    <Input  onChange={(evnt) => setProduct({...product, warranty: evnt.target.value})} placeholder='masalan: 1 yil'/>
+                                    <Input  onChange={(event) => setProduct({...product, warranty: event.target.value})} placeholder='masalan: 1 yil'/>
                                 </div>
 
                                 <div className='d-flex flex-column mb-3'>
                                     <label className='form__category-lable' htmlFor=''>
                                         Sig’m
                                     </label>
-                                    <Input  onChange={(evnt) => setProduct({...product, capacity: evnt.target.value})} placeholder='masalan: 2'/>
+                                    <Input  onChange={(event) => setProduct({...product, capacity: event.target.value})} placeholder='masalan: 2'/>
                                 </div>
 
                                 <div className='d-flex flex-column mb-3'>
                                     <label className='form__category-lable' htmlFor=''>
                                         Aksiya Narxi
                                     </label>
-                                    <Input  onChange={(evnt) => setProduct({...product, new_cost: evnt.target.value})} placeholder='masalan: 1 200 000'/>
+                                    <Input  onChange={(event) => setProduct({...product, new_cost: event.target.value})} placeholder='masalan: 1 200 000'/>
                                 </div>
                             </div>
                             <div>
@@ -162,15 +180,15 @@ const AddLocation = () => {
                                     </div>
 
                                     <div className='d-flex my-4 justify-content-between'>
-                                        <span>Navinla</span> <Checkbox/>
+                                        <span>Active</span> <Checkbox/>
                                     </div>
 
                                     <div className='d-flex mb-4 justify-content-between'>
-                                        <span>Navinla</span> <Checkbox/>
+                                        <span>Navin la</span> <Checkbox/>
                                     </div>
 
-                                    <button type='button' className='addBtn'>
-                                        Qo’shish
+                                    <button type='submit' className='addBtn'>
+                                        Qoshish
                                     </button>
                                 </div>
                             </div>
