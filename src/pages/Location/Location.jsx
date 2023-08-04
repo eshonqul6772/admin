@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import {Modal} from "antd";
 import { MdDelete, MdModeEdit } from 'react-icons/md';
 
 
 import AddresService from '../../services/address.service.js';
+import AddLocation from "./AddLocation.jsx";
 import './Location.scss';
+import Button from "../../components/Button/index.js";
 
 
 function Address() {
 
   const [address, setAddress] = useState([]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   useEffect(() => {
     AddresService.getAdress()
@@ -19,6 +35,18 @@ function Address() {
         console.log(err);
       });
   }, []);
+
+  const hendelDelet = (id) => {
+    AddresService
+        .deleteAddress(id)
+        .then((res) => {
+          setAddress(address.filter((p) => p.id !== id));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    handleCancel();
+  };
 
   return (
     <>
@@ -50,15 +78,32 @@ function Address() {
                           <MdModeEdit />
                         </button>
                         <button className='delet__btn'>
-                          <MdDelete />
+                          <MdDelete  onClick={showModal} />
                         </button>
                       </div>
                     </td>
+                    <Modal
+                        footer={null}
+                        title='Haqiqatdan ham o’chirmoqchimisiz?'
+                        open={isModalOpen}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                    >
+                      <div className='d-flex justify-content-end gap-4 mt-4'>
+                        <Button title="yo'q" variant='neutral' onClick={handleCancel}/>
+                        <Button
+                            onClick={() => hendelDelet(e.id)}
+                            title='ha'
+                            variant='danger-delete'
+                        />
+                      </div>
+                    </Modal>
                   </tr>
                 );
               })}
             </tbody>
           </table>
+          <AddLocation/>
         </div>
       </div>
     </>

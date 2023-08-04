@@ -23,6 +23,7 @@ function Category() {
             title: 'operation',
             dataIndex: 'operation',
             key: 'operation',
+
         },
     ];
     const [category, setCategory] = useState([]);
@@ -107,7 +108,7 @@ function Category() {
     return (
         <>
             <div className='table__box'>
-                <Table dataSource={dataSource} columns={columns}/>
+                <Table pagination={{className:'pagination', defaultPageSize:5}} dataSource={dataSource} columns={columns}/>
                 <div>
                     <AddCategory/>
                 </div>

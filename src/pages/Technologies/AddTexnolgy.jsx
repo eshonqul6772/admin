@@ -1,9 +1,40 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Modal } from 'antd';
+
+
+import SevisecTechlogy from "../../services/tegnolgy.service.js"
 import Checkbox from '../../components/Chekbox/index.jsx';
 
 const AddLocation = () => {
+  const [data, setData] = useState({
+    name:'',
+    thumbnail:'',
+    link:'',
+    description:''
+  })
+
   const [open, setOpen] = useState(false);
+
+
+  const HendleSubmit = (evt)=>{
+    evt.preventDefault()
+
+  const  getData = {
+      name: data.name,
+      thumbnail:data.thumbnail,
+      link:data.link,
+      description:data.description,
+        isActive:true
+    }
+
+      SevisecTechlogy.create(getData).then((res)=>{
+        setData(res)
+      })
+  }
+
+
+  console.log(data)
+
   return (
     <>
       <Button type='primary' onClick={() => setOpen(true)}>
@@ -14,26 +45,27 @@ const AddLocation = () => {
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
-        width={515}
+        width={460}
+        footer={null}
       >
-        <form className='form-texnolgy'>
+        <form onSubmit={HendleSubmit} className='form-texnolgy'>
           <div>
             <h3>Qo’shish</h3>
 
-            <div className='form__list'>
+            <div className='form-texnolgy__list'>
               <div>
                 <div className='d-flex flex-column mb-3'>
                   <label className='form__category-lable' htmlFor=''>
-                    Narxi
+                    Nomi
                   </label>
-                  <input type='text' placeholder='masalan: Lux Soft Memory' />
+                  <input onChange={(e)=> setData({...data, name: e.target.value})} type='text' placeholder='masalan: Lux Soft Memory' />
                 </div>
 
                 <div className='d-flex flex-column mb-3'>
                   <label className='form__category-lable' htmlFor=''>
                     Yuklama
                   </label>
-                  <input type='text' placeholder='masalan: Lux Soft Memory' />
+                  <input onChange={(e)=> setData({...data, thumbnail: e.target.value})} type='text' placeholder='masalan: Lux Soft Memory' />
                 </div>
 
                 <div className='d-flex my-4 justify-content-between'>
@@ -44,19 +76,19 @@ const AddLocation = () => {
               <div>
                 <div className='d-flex flex-column mb-3'>
                   <label className='form__category-lable' htmlFor=''>
-                    Razmeri
+                    Rasm
                   </label>
-                  <input type='text' placeholder='masalan: Lux Soft Memory' />
+                  <input onChange={(e)=> setData({...data, description: e.target.value})} type='text' placeholder='masalan: Lux Soft Memory' />
                 </div>
 
                 <div className='d-flex flex-column mb-3'>
                   <label className='form__category-lable' htmlFor=''>
-                    Kafolat
+                    Video
                   </label>
-                  <input type='text' placeholder='masalan: Lux Soft Memory' />
+                  <input onChange={(e)=> setData({...data, link: e.target.value})} type='text' placeholder='masalan: Lux Soft Memory' />
                 </div>
 
-                <button type='button' className='addBtn'>
+                <button type='submit' className='addBtn'>
                     Qo’shish
                   </button>
                

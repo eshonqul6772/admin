@@ -20,7 +20,6 @@ function Buyurtma() {
       });
   }, []);
 
-  console.log(productData);
 
   return (
     <>
@@ -52,7 +51,6 @@ function Buyurtma() {
                       <Checkbox />
                     </td>
                     <td>
-                      {' '}
                       <td>
                         <div className='d-flex align-items-center justify-content-end gap-3'>
                           <button className='edit__btn'>

@@ -42,7 +42,9 @@ function Costumer() {
         console.log(err);
       });
     console.log(tegnolg)
+
   };
+
   return (
     <>
       <div className='table__box'>

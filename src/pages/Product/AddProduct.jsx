@@ -12,12 +12,21 @@ import Img from '../../assets/imgs/Image 5.png';
 
 const AddLocation = () => {
 
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [category, setCategory] = useState([])
+    const [product, setProducts] = useState([])
 
 
-    const [product, setProduct] = useState({
+    const [addProduct, setProduct] = useState({
         product_images: "",
         category: '',
         name: '',
@@ -34,22 +43,22 @@ const AddLocation = () => {
 
         evt.preventDefault()
         const data = {
-            images: product.product_images,
-            category: product.category,
-            name: product.name,
-            cost: product.cost,
-            weight: product.weight,
-            size: product.size,
-            warranty: product.warranty,
-            capacity: product.capacity,
-            newCost: product.new_cost,
-            body: product.body,
+            images: addProduct.product_images,
+            category: addProduct.category,
+            name: addProduct.name,
+            cost: addProduct.cost,
+            weight: addProduct.weight,
+            size: addProduct.size,
+            warranty: addProduct.warranty,
+            capacity: addProduct.capacity,
+            newCost: addProduct.new_cost,
+            body: addProduct.body,
             discount: false,
             isActive: true,
             new: true,
         };
 
-        AddProduct.create(id,data)
+        AddProduct.create(data)
             .then((res) => {
                 console.log(res);
             })
@@ -62,29 +71,18 @@ const AddLocation = () => {
 
     useEffect(()=>{
         AddProduct.getProduct().then((response)=>{
-            setCategory(response.data)
+            setProducts(response.data.categories)
         })
     },[])
 
 
-    const cate = category.categories;
-
-    console.log(cate)
-
-
-
-    const [open, setOpen] = useState(false);
     return (
         <>
-            <Button type='primary' onClick={() => setOpen(true)}>
+            <Button type='primary' onClick={showModal}>
                 Qoshish
             </Button>
             <Modal
-                footer={null}
-                centered
-                open={open}
-                onOk={() => setOpen(false)}
-                onCancel={() => setOpen(false)}
+                footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
                 width={1240}
             >
                 <form onSubmit={hendelSubmit} className='form'>
@@ -93,7 +91,7 @@ const AddLocation = () => {
 
                         <div className='form__list'>
                             <div>
-                                <Input onChange={(event) => setProduct({...product,  product_images: event.target.value})}
+                                <Input onChange={(e) => setProduct({...addProduct,  product_images: e.target.value})}
                                        style={{display: 'none'}} id='file' type='file'/>
                                 <label htmlFor='file'>
                                     <img className='file__img' src={Img} alt=''/>
@@ -104,9 +102,9 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor='categories'>
                                         Toifalar
                                     </label>
-                                    <select name='Categories' id='categories'>
+                                    <select onSelect={(e) => setProduct({...addProduct,  category: e.target.value})} name='Categories' id='categories'>
                                         {
-                                            cate.map((e)=>{
+                                            product .map((e)=>{
                                                 return(
                                                     <>
                                                         <option value={e.category}>{e.category}</option>
@@ -121,7 +119,7 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Tovar nomi
                                     </label>
-                                    <Input onChange={(event) => setProduct({...product, name: event.target.value})}
+                                    <Input onChange={(event) => setProduct({...addProduct, name: event.target.value})}
                                            placeholder='masalan: Lux Soft Memory'/>
                                 </div>
 
@@ -129,7 +127,7 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Narxi
                                     </label>
-                                    <Input onChange={(event) => setProduct({...product, cost: event.target.value})}
+                                    <Input onChange={(event) => setProduct({...addProduct, cost: event.target.value})}
                                            placeholder='masalan: 20 000'/>
                                 </div>
 
@@ -137,7 +135,7 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Yuklama
                                     </label>
-                                    <Input  onChange={(event) => setProduct({...product, weight: event.target.value})} placeholder='masalan: 200 kg'/>
+                                    <Input  onChange={(event) => setProduct({...addProduct, weight: event.target.value})} placeholder='masalan: 200 kg'/>
                                 </div>
                             </div>
 
@@ -146,28 +144,27 @@ const AddLocation = () => {
                                     <label className='form__category-lable' htmlFor=''>
                                         Razmeri
                                     </label>
-                                    <Input  onChange={(event) => setProduct({...product, size: event.target.value})} placeholder='masalan: 200 x 140 x 40'/>
+                                    <Input  onChange={(event) => setProduct({...addProduct, size: event.target.value})} placeholder='masalan: 200 x 140 x 40'/>
                                 </div>
-
                                 <div className='d-flex flex-column mb-3'>
                                     <label className='form__category-lable' htmlFor=''>
                                         Kafolat
                                     </label>
-                                    <Input  onChange={(event) => setProduct({...product, warranty: event.target.value})} placeholder='masalan: 1 yil'/>
+                                    <Input  onChange={(event) => setProduct({...addProduct, warranty: event.target.value})} placeholder='masalan: 1 yil'/>
                                 </div>
 
                                 <div className='d-flex flex-column mb-3'>
                                     <label className='form__category-lable' htmlFor=''>
                                         Sig’m
                                     </label>
-                                    <Input  onChange={(event) => setProduct({...product, capacity: event.target.value})} placeholder='masalan: 2'/>
+                                    <Input  onChange={(event) => setProduct({...addProduct, capacity: event.target.value})} placeholder='masalan: 2'/>
                                 </div>
 
                                 <div className='d-flex flex-column mb-3'>
                                     <label className='form__category-lable' htmlFor=''>
                                         Aksiya Narxi
                                     </label>
-                                    <Input  onChange={(event) => setProduct({...product, new_cost: event.target.value})} placeholder='masalan: 1 200 000'/>
+                                    <Input  onChange={(event) => setProduct({...addProduct, new_cost: event.target.value})} placeholder='masalan: 1 200 000'/>
                                 </div>
                             </div>
                             <div>

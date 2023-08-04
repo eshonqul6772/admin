@@ -1,5 +1,4 @@
 .form-texnolgy {
-    width: 515px;
     .file__img {
       padding: 80px;
       border-radius: 8px;
@@ -16,10 +15,10 @@
       line-height: normal;
     }
   
-    .form__list {
-      justify-content:space-between ;
+    &__list {
       display: flex;
-      gap: 25px;
+      gap:25px;
+
     }
   
     &__category-lable {

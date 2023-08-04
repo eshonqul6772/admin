@@ -8,8 +8,8 @@ const getProduct = () => {
   return axios.get(API_URL + '/products', { headers: authHeader() });
 };
 
-const create = (id,data) => {
-  return axios.post(API_URL + '/products/'+id, data, { headers: authHeader() });
+const create = (data) => {
+  return axios.post(API_URL + '/products/167', data, { headers: authHeader() });
 };
 
 export default {
